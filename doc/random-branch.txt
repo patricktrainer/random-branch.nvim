@@ -1,0 +1,64 @@
+*random-branch.txt*  Generate random git branch names with Telescope
+
+==============================================================================
+CONTENTS                                              *random-branch-contents*
+
+  1. Introduction ............................ |random-branch-introduction|
+  2. Setup ................................... |random-branch-setup|
+  3. Commands ................................ |random-branch-commands|
+  4. Picker Keymaps .......................... |random-branch-picker|
+  5. API ..................................... |random-branch-api|
+
+==============================================================================
+1. INTRODUCTION                                   *random-branch-introduction*
+
+random-branch.nvim generates random `adjective-animal` git branch names and
+presents them in a Telescope picker. ~180 adjectives × ~200 animals gives
+~36,000 possible combinations.
+
+Requires telescope.nvim.
+
+==============================================================================
+2. SETUP                                                 *random-branch-setup*
+
+>lua
+  require("random-branch").setup({
+    candidates = 10,   -- names shown per roll
+    separator = "-",   -- delimiter
+    prefix = "",       -- e.g. "pk/" or "feat/"
+  })
+<
+
+==============================================================================
+3. COMMANDS                                           *random-branch-commands*
+
+:GitBranch                                                       *:GitBranch*
+    Open a Telescope picker with random branch name candidates.
+    Selecting one creates and checks out the branch.
+
+:GitBranchInsert                                           *:GitBranchInsert*
+    Open a Telescope picker with random branch name candidates.
+    Selecting one inserts the name at the cursor position.
+
+==============================================================================
+4. PICKER KEYMAPS                                      *random-branch-picker*
+
+  <CR>    Create and checkout the selected branch (with confirmation)
+  <C-r>   Reroll a fresh batch of names
+  <C-y>   Yank selected name to the + register
+
+==============================================================================
+5. API                                                     *random-branch-api*
+
+random-branch.generate_name()                    *random-branch.generate_name*
+    Returns a single random `adjective-animal` string.
+
+random-branch.generate_candidates({n})     *random-branch.generate_candidates*
+    Returns a list of {n} unique random names.
+
+random-branch.pick_branch({opts})               *random-branch.pick_branch*
+    Opens the Telescope picker. Pass `{ insert = true }` to insert at
+    cursor instead of creating a git branch.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
